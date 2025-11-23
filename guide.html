@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>Dr. Prompt - 가이드</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        /* [1] 공통 스타일 복구 */
+        :root {
+            --background-dark: #1a1a1a;
+            --background-card: #2b2b2b;
+            --text-white: #ffffff;
+        }
+        body { margin: 0; padding: 0; background-color: var(--background-dark); color: white; font-family: sans-serif; }
+
+        .desktop {
+            display: flex; flex-direction: column; align-items: center; width: 100%; min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        /* 헤더 텍스트 */
+        .desktop .text-wrapper { margin-top: 60px; font-size: 16px; margin-bottom: 20px; }
+
+        /* ✅ [기능] 뒤로가기 버튼 스타일 추가 */
+        .back-btn {
+            position: absolute; top: 20px; left: 20px;
+            color: white; cursor: pointer; font-size: 24px; text-decoration: none;
+        }
+
+        /* 컨텐츠 영역 */
+        .desktop .intro-section { display: flex; justify-content: center; gap: 40px; margin-top: 20px; flex-wrap: wrap; }
+        
+        /* 리스트 컨테이너 */
+        .list-container { display: flex; flex-direction: column; gap: 20px; max-width: 600px; width: 100%; padding: 0 20px; }
+
+        /* ✅ [기능] 클릭 가능한 카드 스타일 */
+        .card-link {
+            text-decoration: none; color: inherit; display: block;
+        }
+        
+        .card-container {
+            display: flex; align-items: flex-start; gap: 20px; padding: 30px;
+            background-color: var(--background-card); border-radius: 16px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        
+        .card-container:hover {
+            transform: translateY(-5px);
+            background-color: #383838; /* 호버 시 약간 밝게 */
+        }
+
+        .icon-circle { width: 42px; height: 42px; background-color: #555; border-radius: 50%; flex-shrink: 0; }
+        
+        .content-text { display: flex; flex-direction: column; gap: 8px; }
+        .title { font-size: 20px; font-weight: 500; }
+        .url-text { font-size: 14px; color: #aaa; word-break: break-all; }
+
+        .bottom-btn {
+            margin-top: 40px; padding: 15px 30px; background-color: white; color: black;
+            border-radius: 8px; font-weight: bold; cursor: pointer;
+        }
+
+        :root {
+            --color-text-primary: #000000;
+            --color-text-secondary: #6c6c6c;
+            --color-text-subtle: #3d1a0d;
+            --color-text-white: #ffffff;
+            --color-accent: #6155f5;
+            --color-bg-light: #fcfaf6;
+            --color-bg-gray: #f6f8fb;
+            --color-bg-white: #ffffff;
+            --color-border: #dbe0ec;
+
+            --font-main: 'Inter', sans-serif;
+            --font-abel: 'Abel', sans-serif;
+            --font-gowun: 'Gowun Batang', serif;
+            --font-rethink: 'Rethink Sans', sans-serif;
+            --font-radio-canada: 'Radio Canada Big', sans-serif;
+            --font-source-serif: 'Source Serif Pro', serif;
+            --font-ranga: 'Ranga', sans-serif;
+            --font-mono: 'Geist Mono', monospace; /* Fallback */
+            --font-paperlogy: 'Paperlogy', sans-serif; /* Fallback */
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-main);
+            background-color: var(--color-bg-white);
+            color: var(--color-text-primary);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        h1, h2, h3, h4, h5, h6, p {
+            margin: 0;
+        }
+
+        .page-container {
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .site-header {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(6px);
+            z-index: 100;
+        }
+        .site-header .page-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-link {
+            font-family: var(--font-abel);
+            font-size: 16px;
+            color: var(--color-text-primary);
+        }
+        .nav-link-special {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: var(--font-abel);
+            font-size: 16px;
+            color: var(--color-text-primary);
+        }
+        .nav-link-special img {
+            width: 14px;
+            height: auto;
+        }
+
+        .guide-section {
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+        .guide-layout {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .main-content-col {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+        .sidebar-col {
+            width: 362px;
+            flex-shrink: 0;
+        }
+        .sidebar-sticky-content {
+            position: sticky;
+            top: 100px; /* height of header + some margin */
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .content-block {
+            display: flex;
+            flex-direction: column;
+            gap: 56px;
+            align-items: center;
+        }
+        .title-main {
+            font-family: var(--font-gowun);
+            font-weight: 400;
+            font-size: 70px;
+            line-height: 1;
+            letter-spacing: -2.1px;
+            text-align: center;
+            color: var(--color-text-primary);
+        }
+        .instructions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 56px;
+            width: 100%;
+            max-width: 661px;
+        }
+        .instruction-card {
+            background-color: var(--color-bg-light);
+            border-radius: 10px;
+            padding: 34px 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 40px;
+        }
+        .instruction-text-1 {
+            font-family: var(--font-rethink);
+            font-size: 16px;
+            letter-spacing: -0.48px;
+            color: var(--color-text-subtle);
+        }
+        .instruction-text-2 {
+            font-family: var(--font-gowun);
+            font-size: 30px;
+            line-height: 1.2;
+            letter-spacing: -0.9px;
+            color: var(--color-text-primary);
+        }
+        .paragraph-intro {
+            font-family: var(--font-main);
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 1.2;
+            letter-spacing: -0.48px;
+            max-width: 661px;
+        }
+        .guide-subsection {
+            width: 100%;
+            max-width: 661px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .title-sub {
+            font-family: var(--font-radio-canada);
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: -0.4px;
+            color: var(--color-text-primary);
+            margin-bottom: 8px;
+        }
+        .title-category {
+            font-family: var(--font-source-serif);
+            font-size: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.8px;
+            color: var(--color-text-secondary);
+            margin-bottom: 16px;
+        }
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .article-card {
+            border: 1px solid var(--color-border);
+            display: flex;
+            gap: 16px;
+            padding: 24px;
+            align-items: center;
+        }
+        .article-img {
+            width: 165px;
+            height: 100px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .article-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .article-title {
+            font-family: var(--font-radio-canada);
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: -0.4px;
+            color: var(--color-text-primary);
+        }
+        .article-example {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            word-break: keep-all;
+        }
+        .paragraph-methodology-intro {
+            font-family: var(--font-ranga);
+            font-size: 20px;
+            text-align: center;
+            letter-spacing: -0.4px;
+            max-width: 661px;
+        }
+        .methodology-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            max-width: 661px;
+        }
+        .methodology-card {
+            background-color: var(--color-bg-gray);
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .methodology-icon {
+            width: 42px;
+            height: 42px;
+        }
+        .methodology-icon-merged {
+            width: 42px;
+            height: 42px;
+            position: relative;
+        }
+        .methodology-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .methodology-title {
+            font-family: var(--font-radio-canada);
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: -0.4px;
+        }
+        .methodology-text {
+            font-family: var(--font-source-serif);
+            font-size: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.8px;
+        }
+        .sidebar-title {
+            font-family: var(--font-source-serif);
+            font-size: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.8px;
+            color: var(--color-text-secondary);
+        }
+        .link-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .link-card {
+            background-color: var(--color-bg-gray);
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .link-icon {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .link-title {
+            font-family: var(--font-radio-canada);
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: -0.4px;
+        }
+        .link-url {
+            font-family: var(--font-source-serif);
+            font-size: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.8px;
+            word-break: break-all;
+        }
+
+        @media (max-width: 1024px) {
+            .guide-layout {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .sidebar-col {
+                width: 100%;
+            }
+            .sidebar-sticky-content {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title-main {
+                font-size: 48px;
+            }
+            .article-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .methodology-card, .link-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<header>
+    
+            </a>
+        </nav>
+    </div>
+</header>
+
+<main class="guide-section">
+    <div class="page-container">
+        <div class="guide-layout">
+            <div class="main-content-col">
+                <section id="instructions" class="content-block">
+                    <h1 class="title-main">＜ Dr. Prompt 설명서 ＞</h1>
+                    <p class="paragraph-intro">본 서비스는 사용자의 모호한 질문을 AI가 가장 잘 이해하는 명확하고 구조적인 프롬프트로 최적화합니다. 입력된 내용을 분석하여 핵심 요소를 강조하고 논리적으로 재구성하며, Gemini와 ChatGPT 각 모델의 특성에 딱 맞는 프롬프트를 자동으로 생성해 줍니다.</p>
+                    <div class="instructions-grid">
+                        <div class="instruction-card">
+                            <p class="instruction-text-1">1) Gpt or Gemini 챗봇을 선택하고 대화하세요.</p>
+                        </div>
+                        <div class="instruction-card">
+                            <p class="instruction-text-1">2) Gpt 모델 중 한 가지를 선택하세요.</p>
+                            <p class="instruction-text-2">a. Gpt-5 Instant: 빠른 대화, 간단한 QnA<br>b. Gpt-5 Thinking: 문제 풀이, 단계별 사고</p>
+                        </div>
+                        <div class="instruction-card">
+                            <p class="instruction-text-1">3) Gemini 모델 중 하나를 선택하세요.</p>
+                            <p class="instruction-text-2">a. Gemini Flash: 빠른 답변<br>b. Gemini Thinking: 복잡한 주제</p>
+                        </div>
+                        <div class="instruction-card">
+                            <p class="instruction-text-1">4) 초기 프롬프트를 입력하세요.</p>
+                            <p class="instruction-text-2">-&gt; 프롬프트 설명서를 참고★</p>
+                        </div>
+                        <div class="instruction-card">
+                            <p class="instruction-text-1">5) 챗봇과 함께 프롬프트를 발전시키세요!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="prompt-guide" class="content-block">
+                    <h2 class="title-main">＜ Prompt 구조화 ＞</h2>
+                    <div class="guide-subsection">
+                        <h4 class="title-category">1) GPT mentor</h4>
+                        <div class="article-list">
+                            <article class="article-card">
+                                <img src="https://raw.githubusercontent.com/sol-dev12/assets/7b53a5875ae872142d67ecc4fa78872adbaed081/samoyed.avif
+" alt="samoyed" class="article-img">
+                                <div class="article-content">
+                                    <h5 class="article-title">역할: GPT에게 페르소나를 부여하세요.</h5>
+                                    <p class="article-example">Ex) “네가 고양이라고 생각하고 참치에 대한 감상을 써줘.”</p>
+                                </div>
+                            </article>
+                            <article class="article-card">
+                                <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/goldendog.jpg" alt="golden dog" class="article-img">
+                                <div class="article-content">
+                                    <h5 class="article-title">목표: 얻고자 하는 최종 산출물이 무엇인가요?</h5>
+                                    <p class="article-example">Ex) “ ~을 긍정적 또는 부정적으로 분류한 결과가 필요해.”</p>
+                                </div>
+                            </article>
+                            <article class="article-card">
+                                <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/jaguar.jpg" alt="jaguar" class="article-img">
+                                <div class="article-content">
+                                    <h5 class="article-title">자료/맥락: 작업의 이유, 상황, 진도, 배경 등을 설명하세요.</h5>
+                                    <p class="article-example">Ex) “과제를 위해 이 문제를 풀고 있어. 이 부분을 모르겠어.”</p>
+                                </div>
+                            </article>
+                            <article class="article-card">
+                                <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/snowcat.jpg" alt="snowcat" class="article-img">
+                                <div class="article-content">
+                                    <h5 class="article-title">제약조건: 작업에 적용되는 제한 사항이나 규칙을 명확히 하세요.</h5>
+                                    <p class="article-example">Ex) “딱딱한 공문서 말투보다는, 정중하지만 부드러운 해요체를 사용해줘.”</p>
+                                </div>
+                            </article>
+                            <article class="article-card">
+                                <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/tiger.jpg" alt="tiger" class="article-img">
+                                <div class="article-content">
+                                    <h5 class="article-title">형식: 답변을 받고 싶은 형태(표, 리스트, 코드 등)를 정하세요.</h5>
+                                    <p class="article-example">Ex) “함수별 사용법과 장단점을 비교하는 표(Table)로 정리해줘.”</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="guide-subsection">
+                        <h4 class="title-category">2) Gemini mentor</h4>
+                        <div class="article-list">
+                            <article class="article-card">
+                                <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/flowercat.jpg" alt="flowercat" class="article-img">
+                                <div class="article-content">
+                                    <h5 class="article-title">맥락 (Context): 작업의 배경, 목적, 현재 상황을 설명하세요.</h5>
+                                    <p class="article-example">Ex) "나는 코딩 초보자고, 이번 해커톤에서 파이썬을 처음 써봐."</p>
+                                </div>
+                            </article>
+                            <article class="article-card">
+                                <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/cheeta.png" alt="cheeta" class="article-img">
+                                <div class="article-content">
+                                    <h5 class="article-title">역할 (Role): 제미나이에게 전문적인 페르소나를 부여하세요.</h5>
+                                    <p class="article-example">Ex) "너는 복잡한 개념을 아주 쉽게 설명해 주는 친절한 1타 강사야."</p>
+                                </div>
+                            </article>
+                             <article class="article-card">
+                                <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/babylion.png" alt="babylion" class="article-img">
+                                <div class="article-content">
+                                    <h5 class="article-title">구체화 (Explicit Task): 해야 할 일과 제약 조건을 명확한 동사로 지시하세요.</h5>
+                                    <p class="article-example">Ex) "이 코드의 에러 원인을 분석하고, 주석을 달아서 수정된 코드를 보여줘."</p>
+                                </div>
+                            </article>
+                            <article class="article-card">
+                                <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/tiger.jpg" alt="tiger" class="article-img">
+                                <div class="article-content">
+                                    <h5 class="article-title">형식 (Format): 답변을 받고 싶은 형태(표, 리스트, 코드 등)를 정하세요.</h5>
+                                    <p class="article-example">Ex) "수정 전/후를 비교할 수 있는 마크다운 표로 정리해 줘."</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="methodology" class="content-block">
+                    <h2 class="title-main">＜ Prompt 심화 이론 ＞</h2>
+                    <p class="paragraph-methodology-intro">AI 모델이 최적의 결과를 생성하도록 프롬프트를 설계하고 최적화하는 기술 및 방법론</p>
+                    <div class="methodology-list">
+                        <article class="methodology-card">
+                            <div class="methodology-content">
+                                <h4 class="methodology-title">1) “Chain-Of-Thought” Prompting(CoT)</h4>
+                                <p class="methodology-text">: 중간 과정을 단계별로 설명하면서 최종 답변에 도달하는 방식<br>=> Self-Consistency, Tree of Thoughts</p>
+                            </div>
+                        </article>
+                        <article class="methodology-card">
+                            <div class="methodology-content">
+                                <h4 class="methodology-title">2) “Zero-Shot” Prompting</h4>
+                                <p class="methodology-text">: Few-Shot처럼 모델에 예시나 추가적 정보를 제공하지 않고, <br>질문에 직관적으로 답하게 하는 방식<br>: 모델이 주어진 지시문을 명확히 이해하지 못하거나 엉뚱한 답변을 <br>할 가능성이 있다.</p>
+                            </div>
+                        </article>
+                        <article class="methodology-card">
+                            <!--merged image-->
+                            <div class="methodology-icon-merged">
+                            </div>
+                            <div class="methodology-content">
+                                <h4 class="methodology-title">3) “Few-Shot” Prompting</h4>
+                                <p class="methodology-text">: 적은 데이터만을 가지고 정확한 출력을 낼 수 있도록 하는 것<br>: 사용자가 원하는 질문에 대한 형식을 n개 입력한다. 이후 AI에게 <br>질문을 입력하면 AI가 예시의 답변 형식에 맞춘 대답을 출력한다.<br> <br>예) <br>[Prompt] 단어를 설명해줘.<br>   [Ex] 희망이 뭐야? :어떤 일을 이루거나 하기를 바람. <br>또는 앞으로 잘 될 수 있는 가능성을 의미합니다.<br>   [New] 절망이 뭐야? <br>[AI answer] : 바라볼 것이 없게 되어 모든 희망을 끊어버림. 또는 그런 상태를 의미합니다.</p>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="sidebar-col">
+                <div class="sidebar-sticky-content">
+                    <h3 class="sidebar-title">AI 툴 별 프롬프트 작성법 관련 글</h3>
+                    <div class="link-card-list">
+
+                        <!-- 1) 범용 -->
+                        <a href="https://learnprompting.org/" target="_blank" class="link-card">
+                            <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/Union.png" 
+                                alt="union icon" class="link-icon">
+                            <h4 class="link-title">1) 범용 (모든 생성형 AI)</h4>
+                            <p class="link-url">https://learnprompting.org/</p>
+                        </a>
+
+                        <!-- 2) OpenAI GPT -->
+                        <a href="https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api?utm_source=chatgpt.com" 
+                           target="_blank" class="link-card">
+                            <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/Union.png" 
+                                alt="union icon" class="link-icon">
+                            <h4 class="link-title">2) OpenAI의 GPT 모델들</h4>
+                            <p class="link-url">
+                                https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api?utm_source=chatgpt.com
+                            </p>
+                        </a>
+
+                        <!-- 3) Gemini API -->
+                        <a href="https://ai.google.dev/gemini-api/docs/prompting-strategies" 
+                           target="_blank" class="link-card">
+                            <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/Union.png" 
+                                alt="union icon" class="link-icon">
+                            <h4 class="link-title">3) Google Gemini (개발자용 API)</h4>
+                            <p class="link-url">https://ai.google.dev/gemini-api/docs/prompting-strategies</p>
+                        </a>
+
+                        <!-- 4) Gemini Workspace -->
+                        <a href="https://workspace.google.com/resources/gemini-prompting-guide-101" 
+                           target="_blank" class="link-card">
+                            <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/Union.png" 
+                                alt="union icon" class="link-icon">
+                            <h4 class="link-title">4) Gemini for Google Workspace</h4>
+                            <p class="link-url">https://workspace.google.com/resources/gemini-prompting-guide-101</p>
+                        </a>
+
+                        <!-- 5) Gemini 예시 라이브러리 -->
+                        <a href="https://ai.google.dev/gemini-api/prompts" 
+                           target="_blank" class="link-card">
+                            <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/Union.png" 
+                                alt="union icon" class="link-icon">
+                            <h4 class="link-title">5) Gemini (예시 라이브러리)</h4>
+                            <p class="link-url">https://ai.google.dev/gemini-api/prompts</p>
+                        </a>
+
+                        <!-- 6) 범용(주로 ChatGPT 예시) -->
+                        <a href="https://brunch.co.kr/@vsongyev/27" 
+                           target="_blank" class="link-card">
+                            <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/Union.png" 
+                                alt="union icon" class="link-icon">
+                            <h4 class="link-title">6) 범용 (주로 ChatGPT 예시)</h4>
+                            <p class="link-url">https://brunch.co.kr/@vsongyev/27</p>
+                        </a>
+
+                        <!-- 7) ChatGPT, Llama2 등 -->
+                        <a href="https://arxiv.org/abs/2308.07702" 
+                           target="_blank" class="link-card">
+                            <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/Union.png" 
+                                alt="union icon" class="link-icon">
+                            <h4 class="link-title">7) ChatGPT, Llama 2 등</h4>
+                            <p class="link-url">https://arxiv.org/abs/2308.07702</p>
+                        </a>
+
+                        <!-- 8) LLM 전반 -->
+                        <a href="https://arxiv.org/abs/2310.14735" 
+                           target="_blank" class="link-card">
+                            <img src="https://raw.githubusercontent.com/sol-dev12/assets/main/Union.png" 
+                                alt="union icon" class="link-icon">
+                            <h4 class="link-title">8) 거대 언어 모델(LLM) 전반</h4>
+                            <p class="link-url">https://arxiv.org/abs/2310.14735</p>
+                        </a>
+
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</main>
+</body>
+</html>
